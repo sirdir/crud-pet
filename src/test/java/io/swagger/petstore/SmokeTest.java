@@ -15,7 +15,12 @@ public class SmokeTest extends BaseTest {
     }
 
     @Test
-    public void updateTest(){
+    public void updateFullTest(){
+
+    }
+
+    @Test
+    public void updatePartlyTest(){
 
     }
 

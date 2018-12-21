@@ -1,65 +1,52 @@
 package io.swagger.petstore.tests;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.swagger.petstore.pojo.Category;
-import io.swagger.petstore.pojo.Pet;
-import io.swagger.petstore.pojo.Tag;
+import io.swagger.petstore.pojo.pet.Pet;
+import io.swagger.petstore.pojo.pet.PetFactory;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
-
-import static io.restassured.RestAssured.given;
+import static io.swagger.petstore.steps.SendRequests.*;
 
 public class SmokeTest extends BaseTest {
 
-    @Test
-    public void postTest(){
-        //todo json here just for debug
-        Category cat = new Category();
-        cat.setId(1);
-        cat.setName("kitty cat");
+    @Test(testName = "Create -> Read -> full Update -> Read -> Delete -> Read")
+    public void crufrdr() {
+        //crete
+        Pet cat = PetFactory.defaultPet();
+        Response response1 = createEntity(cat);
 
-        Tag tag = new Tag();
-        tag.setId(1);
-        tag.setName("fat cat");
+        response1.then().statusCode(200);
+        //read
+        Response response2 = getEntityById(cat.getId());
+        response2.then().statusCode(200);
 
-        Pet pet = new Pet();
-        pet.setCategory(cat);
-        pet.setTags(Collections.singletonList(tag));
-        pet.setId(123321);
-        pet.setName("leroy jenkins");
-        pet.setStatus("available");
+        //full update
+        Pet newCat = PetFactory.petWithCategoryAndTag("customCat", "customTag");
+        Response response3 = updateFullEntity(newCat);
+        response3.then().statusCode(200);
 
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body(pet)
-                .when()
-                .post();
+        //read
+        Response response4 = getEntityById(cat.getId());
+        response4.then().statusCode(200);
 
-        response.then().statusCode(200);
-        Pet petResponse = response.as(Pet.class);
-        System.out.println("petResponse = " + petResponse);
-    }
 
-    @Test
-    public void getTest(){
+        //delete
+        Response response5 = deleteEntity(cat.getId());
+        response5.then().statusCode(200);
+
+
+        //read
+        Response response6 = getEntityById(cat.getId());
+        response6.then().statusCode(404);
 
     }
 
-    @Test
-    public void updateFullTest(){
-
+    @Test(testName = "Create -> Read -> fields Update -> Read -> Delete -> Read")
+    public void cruprdr() {
+//        Pet cat = PetFactory.defaultPet();
+//        Response response = getEntityById(cat.getId());
+//
+//        response.then().statusCode(200);
     }
 
-    @Test
-    public void updatePartlyTest(){
-
-    }
-
-    @Test
-    public void deleteTest(){
-
-    }
 }

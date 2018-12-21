@@ -1,23 +1,23 @@
-package io.swagger.petstore.pojo;
+package io.swagger.petstore.pojo.pet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Category {
+public class Tag {
 
     @JsonProperty("id")
-    private Integer id;
+    private Long id;
     @JsonProperty("name")
     private String name;
 
     @JsonProperty("id")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,10 +33,9 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
-
 }

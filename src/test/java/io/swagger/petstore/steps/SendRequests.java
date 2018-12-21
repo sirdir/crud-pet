@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class SendRequests {
 
     @Step
-    public static Response createEntity(Pet pet) {
+    public static Response createPet(Pet pet) {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -21,7 +21,7 @@ public class SendRequests {
     }
 
     @Step
-    public static Response getEntityById(long petId) {
+    public static Response getPetById(long petId) {
 
         return given()
                 .accept(ContentType.JSON)
@@ -31,19 +31,7 @@ public class SendRequests {
     }
 
     @Step
-    public static Response updateEntityFields(Pet pet) {
-
-        return given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .pathParam("petId", pet.getId())
-                .body(pet)
-            .when()
-                .post("/{petId}");
-    }
-
-    @Step
-    public static Response updateFullEntity(Pet pet) {
+    public static Response updatePet(Pet pet) {
 
         return given()
                 .contentType(ContentType.JSON)
@@ -54,7 +42,7 @@ public class SendRequests {
     }
 
     @Step
-    public static Response deleteEntity(long petId) {
+    public static Response deletePet(long petId) {
 
         return given()
                 .accept(ContentType.JSON)

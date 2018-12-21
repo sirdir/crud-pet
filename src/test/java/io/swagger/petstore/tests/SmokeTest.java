@@ -3,50 +3,74 @@ package io.swagger.petstore.tests;
 import io.restassured.response.Response;
 import io.swagger.petstore.pojo.pet.Pet;
 import io.swagger.petstore.pojo.pet.PetFactory;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.swagger.petstore.steps.SendRequests.*;
 
 public class SmokeTest extends BaseTest {
 
-    @Test(testName = "Create -> Read -> full Update -> Read -> Delete -> Read")
-    public void crufrdr() {
+    private Pet cat1;
+    private Pet cat2;
+
+    @BeforeClass
+    public void createInstances() {
+        cat1 = PetFactory.defaultPet();
+        createPet(cat1);
+
+        cat2 = PetFactory.defaultPet();
+        createPet(cat2);
+
+    }
+
+    @Test(description  = "Create -> Update -> Read -> Delete")
+    public void crudFullJourney() {
         //crete
         Pet cat = PetFactory.defaultPet();
-        Response response1 = createEntity(cat);
+        Response createResponse = createPet(cat);
+        createResponse.then().statusCode(200);
+        Pet catAfterCreate =createResponse.as(Pet.class);
 
-        response1.then().statusCode(200);
-        //read
-        Response response2 = getEntityById(cat.getId());
-        response2.then().statusCode(200);
+        Assert.assertEquals(catAfterCreate, cat, "after create");
 
         //full update
         Pet newCat = PetFactory.petWithCategoryAndTag("customCat", "customTag");
-        Response response3 = updateFullEntity(newCat);
-        response3.then().statusCode(200);
+        Response updateResponse = updatePet(newCat);
+        updateResponse.then().statusCode(200);
+        Pet catAfterUpdate = updateResponse.as(Pet.class);
+
+        Assert.assertEquals(catAfterUpdate, newCat, "after update");
 
         //read
-        Response response4 = getEntityById(cat.getId());
-        response4.then().statusCode(200);
+        Response readResponse = getPetById(newCat.getId());
+        readResponse.then().statusCode(200);
+        Pet catAfterRead = readResponse.as(Pet.class);
 
+        Assert.assertEquals(catAfterRead, newCat, "after read");
 
         //delete
-        Response response5 = deleteEntity(cat.getId());
-        response5.then().statusCode(200);
-
-
-        //read
-        Response response6 = getEntityById(cat.getId());
-        response6.then().statusCode(404);
-
+        Response deleteResponse = deletePet(cat.getId());
+        deleteResponse.then().statusCode(200);
     }
 
-    @Test(testName = "Create -> Read -> fields Update -> Read -> Delete -> Read")
-    public void cruprdr() {
-//        Pet cat = PetFactory.defaultPet();
-//        Response response = getEntityById(cat.getId());
-//
-//        response.then().statusCode(200);
+    @Test(description  = "get 404 error when delete not existed pat")
+    public void deleteNotExistedPet() {
+        Response deleteResponse1 = deletePet(cat1.getId());
+        deleteResponse1.then().statusCode(200);
+
+        Response deleteResponse2 = deletePet(cat1.getId());
+        deleteResponse2.then().statusCode(404);
     }
+
+    @Test(description  = "get 404 error when read not existed pat")
+    public void getNotExistedPet() {
+        Response deleteResponse1 = deletePet(cat2.getId());
+        deleteResponse1.then().statusCode(200);
+
+        Response deleteResponse2 = getPetById(cat2.getId());
+        deleteResponse2.then().statusCode(404);
+    }
+
 
 }

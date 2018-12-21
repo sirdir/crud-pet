@@ -1,5 +1,6 @@
-package io.swagger.petstore;
+package io.swagger.petstore.tests;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.swagger.petstore.pojo.Category;
 import io.swagger.petstore.pojo.Pet;
@@ -31,8 +32,8 @@ public class SmokeTest extends BaseTest {
         pet.setStatus("available");
 
         Response response = given()
-                .contentType("application/json")
-                .accept("application/json")
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
                 .body(pet)
                 .when()
                 .post();

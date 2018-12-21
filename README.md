@@ -2,8 +2,8 @@
 gradle used as dependency management
 
 if you want to execute test and get report in one command use
-* for Win users `gradlew.bat clean test allureServe`
-* for Linux/Mac users `.\gradlew clean test allureServe`
+* for Win users `gradlew.bat clean test allureReport allureServe`
+* for Linux/Mac users `./gradlew clean test allureReport allureServe`
 
 for just test run use
 

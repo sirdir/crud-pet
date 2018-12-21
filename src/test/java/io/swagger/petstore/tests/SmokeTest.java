@@ -4,25 +4,12 @@ import io.restassured.response.Response;
 import io.swagger.petstore.pojo.pet.Pet;
 import io.swagger.petstore.pojo.pet.PetFactory;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.swagger.petstore.steps.SendRequests.*;
 
 public class SmokeTest extends BaseTest {
 
-    private Pet cat1;
-    private Pet cat2;
-
-    @BeforeClass
-    public void createInstances() {
-        cat1 = PetFactory.defaultPet();
-        createPet(cat1);
-
-        cat2 = PetFactory.defaultPet();
-        createPet(cat2);
-
-    }
 
     @Test(description  = "Create -> Update -> Read -> Delete")
     public void crudFullJourney() {
@@ -56,19 +43,27 @@ public class SmokeTest extends BaseTest {
 
     @Test(description  = "get 404 error when delete not existed pat")
     public void deleteNotExistedPet() {
-        Response deleteResponse1 = deletePet(cat1.getId());
+        Pet cat = PetFactory.defaultPet();
+        Response createResponse = createPet(cat);
+        createResponse.then().statusCode(200);
+
+        Response deleteResponse1 = deletePet(cat.getId());
         deleteResponse1.then().statusCode(200);
 
-        Response deleteResponse2 = deletePet(cat1.getId());
+        Response deleteResponse2 = deletePet(cat.getId());
         deleteResponse2.then().statusCode(404);
     }
 
     @Test(description  = "get 404 error when read not existed pat")
     public void getNotExistedPet() {
-        Response deleteResponse1 = deletePet(cat2.getId());
+        Pet cat = PetFactory.defaultPet();
+        Response createResponse = createPet(cat);
+        createResponse.then().statusCode(200);
+
+        Response deleteResponse1 = deletePet(cat.getId());
         deleteResponse1.then().statusCode(200);
 
-        Response deleteResponse2 = getPetById(cat2.getId());
+        Response deleteResponse2 = getPetById(cat.getId());
         deleteResponse2.then().statusCode(404);
     }
 

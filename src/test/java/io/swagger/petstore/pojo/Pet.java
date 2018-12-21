@@ -1,14 +1,9 @@
 package io.swagger.petstore.pojo;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pet {
@@ -25,8 +20,6 @@ public class Pet {
     private List<Tag> tags = null;
     @JsonProperty("status")
     private String status;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("id")
     public Integer getId() {
@@ -88,16 +81,6 @@ public class Pet {
         this.status = status;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public String toString() {
         return "Pet{" +
@@ -107,7 +90,6 @@ public class Pet {
                 ", photoUrls=" + photoUrls +
                 ", tags=" + tags +
                 ", status='" + status + '\'' +
-                ", additionalProperties=" + additionalProperties +
                 '}';
     }
 }

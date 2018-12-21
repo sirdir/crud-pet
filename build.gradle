@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'io.qameta.allure'
+    id 'io.qameta.allure' version '2.5'
 }
 
 group 'space.sirdir'
@@ -9,7 +9,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -17,7 +17,7 @@ dependencies {
     testCompile('org.testng:testng:6.14.3')
     testCompile('io.qameta.allure:allure-testng:2.8.1')
     testCompile('io.qameta.allure:allure-rest-assured:2.8.1')
-    testCompile('com.fasterxml.jackson.cor:jackson-databind:2.9.8')
+    testCompile('com.fasterxml.jackson.core:jackson-databind:2.9.8')
 }
 
 test {
@@ -25,20 +25,10 @@ test {
     testLogging.showStandardStreams = true
 }
 
-buildscript {
-
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath "io.qameta.allure:allure-gradle:2.5"
-    }
-}
-
 allure {
     version = '2.8.0'
-//    downloadLink = 'https://github.com/allure-framework/allure2/releases/download/2.8.0/allure-2.8.0.zip'
+    downloadLink = 'https://github.com/allure-framework/allure2/releases/download/2.8.0/allure-2.8.0.zip'
+    reportDir = file('build/allure-report')
     autoconfigure = true
     aspectjweaver = true
 }

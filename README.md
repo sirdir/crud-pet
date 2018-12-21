@@ -1,8 +1,8 @@
 # build
 gradle used as dependency management soo execute
 
-* for Win users `gradlew.bat clean test allure:serve`
-* for Linux/Mac users `.\gradlew clean test allure:serve`
+* for Win users `gradlew.bat clean test allureServe`
+* for Linux/Mac users `.\gradlew clean test allureServe`
 
 
 # reports

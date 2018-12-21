@@ -11,5 +11,6 @@ public class BaseTest {
         RestAssured.baseURI = "https://petstore.swagger.io/"; //todo move to config
         RestAssured.basePath = "v2/pet"; //todo move to config
         RestAssured.filters(new AllureRestAssured());
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 }

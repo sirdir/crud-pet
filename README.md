@@ -13,6 +13,8 @@ for just test run use
 # reports
 will be generated after build and opened in default browser
 
+https://youtu.be/uCPeqIf3CDs - just brief introduction of allure2
+
 but sill if you want look at them separately after test run, you can execute
 
 * for Win 

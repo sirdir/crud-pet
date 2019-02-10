@@ -1,4 +1,18 @@
 # build/test
+
+Test assignment for Sr. QA Automation Engineer in (EPAMm, Netherland)
+
+##Test assignment
+
+You can find pdf in project root folder file Test-automation-assignment.pdf
+`Please complete it and  then send me back alongside with the estimated time you spent dealing with it!`
+
+##IMPORTANT
+
+Additional suggestions from reviewers to add Lombok for builder pattern and json POJOs. Move constants to configs.
+
+-----
+
 gradle used as dependency management
 
 if you want to execute test and get report in one command use

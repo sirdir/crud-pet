@@ -2,12 +2,12 @@
 
 Test assignment for Sr. QA Automation Engineer in (EPAMm, Netherland)
 
-##Test assignment
+## Test assignment
 
 You can find pdf in project root folder file Test-automation-assignment.pdf
 `Please complete it and  then send me back alongside with the estimated time you spent dealing with it!`
 
-##IMPORTANT
+## IMPORTANT
 
 Additional suggestions from reviewers to add Lombok for builder pattern and json POJOs. Move constants to configs.
 
